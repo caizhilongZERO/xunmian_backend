@@ -6,6 +6,8 @@ import com.codemao.xunmiao.service.seatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class seatServiceImpl implements seatService {
@@ -37,6 +39,11 @@ public class seatServiceImpl implements seatService {
             Integer floor_id
     ) {
         staffInfoMapper.deleteStaff(seat_id, block_id, floor_id);
+    }
+
+    @Override
+    public List<staffEntity> listFloorInfo(Integer floor) {
+       return staffInfoMapper.listFloorInfo(floor);
     }
 }
 

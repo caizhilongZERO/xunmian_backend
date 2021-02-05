@@ -3,6 +3,7 @@ package com.codemao.xunmiao.controller;
 import com.codemao.xunmiao.domain.response.blockInfo;
 import com.codemao.xunmiao.domain.response.floorInfo;
 import com.codemao.xunmiao.domain.response.staffResponse;
+import com.codemao.xunmiao.domain.staffEntity;
 import com.codemao.xunmiao.service.seatService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -22,7 +25,7 @@ public class seatController {
     public floorInfo getFloorInfo(
             @RequestParam(value = "floor") Integer floor
     ) {
-        // TODO 返回楼层信息
+        List<staffEntity> a = seatService.listFloorInfo(floor);
         return new floorInfo();
     }
 

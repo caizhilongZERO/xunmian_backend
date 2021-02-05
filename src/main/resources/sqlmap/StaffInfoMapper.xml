@@ -12,7 +12,7 @@
         <result column="updateTime" property="createTime"/>
     </resultMap>
     <sql id="tbl_staff_info">`xunmiao_db`.`tbl_staff_info`</sql>
-    <select id="deleteStaff">
+    <delete id="deleteStaff">
         delete
         from
         <include refid="tbl_staff_info"/>
@@ -20,6 +20,16 @@
                 `seat` = #{seat_id}
             and `block` = #{block_id}
             and `floor` = #{floor_id}
+        </where>
+    </delete>
+
+    <select id="listFloorInfo" resultMap="StaffInfoResultMap">
+        select
+
+        from
+        <include refid="tbl_staff_info"/>
+        <where>
+            `floor` = ${floor}
         </where>
     </select>
 </mapper>
