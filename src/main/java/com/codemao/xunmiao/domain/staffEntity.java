@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @TableName(value = "tbl_staff_info")
 public class staffEntity {
     @TableId(value = "id")
-    private Long id;
+    private String id;
 
     @ApiModelProperty("员工姓名")
     private String name;
@@ -20,7 +20,7 @@ public class staffEntity {
     private Integer floor;
 
     @ApiModelProperty("所在小组")
-    private Integer group;
+    private Integer block;
 
     @ApiModelProperty("所在座位号")
     private Integer seat;

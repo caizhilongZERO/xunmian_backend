@@ -1,33 +1,74 @@
 package com.codemao.xunmiao.controller;
 
-import org.springframework.http.HttpStatus;
+import com.codemao.xunmiao.domain.response.blockInfo;
+import com.codemao.xunmiao.domain.response.floorInfo;
+import com.codemao.xunmiao.domain.response.staffResponse;
+import com.codemao.xunmiao.service.seatService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-
+@Slf4j
 @RestController
 public class seatController {
-    @ResponseStatus(HttpStatus.OK)
-    @RequestMapping("/seat-manage/add/staff")
-    public String addStaff(
-            @RequestParam(value = "id", required = false) String id,
-            @RequestParam(value = "name", required = false) String name,
-            @RequestParam(value = "floor", required = false) Integer floor,
-            @RequestParam(value = "seat", required = false) Integer seat
+
+    @Autowired
+    private seatService seatService;
+
+    @RequestMapping("/floor")
+    public floorInfo getFloorInfo(
+            @RequestParam(value = "floor") Integer floor
     ) {
-        // TODO 某个座位添加员工信息
-        return "hello";
+        // TODO 返回楼层信息
+        return new floorInfo();
     }
 
-    @RequestMapping("/seat-manage/delete/staff")
-    public void deleteStaff(
-            @RequestParam(value = "floor", required = false) Integer floor,
-            @RequestParam(value = "seat", required = false) Integer seat
-    ) {
-        // TODO 删除某个座位员工信息
+    @RequestMapping("/block")
+    public blockInfo getBlockInfo(
+            @RequestParam("floor") Integer floor,
+            @RequestParam("blockid") Integer blockid
+    )   {
+        // TODO 返回分组信息
+        return new blockInfo();
     }
 
-    // ....
+    @RequestMapping("/search")
+    public staffResponse searchStaff(
+            @RequestParam("keyword") String keyword
+    ){
+        // TODO 搜索员工信息
+        return new staffResponse();
+    }
+    @RequestMapping("/seat")
+    public boolean addSeat(
+            @RequestParam("name") String name,
+            @RequestParam("id") String id,
+            @RequestParam("floor") Integer floor,
+            @RequestParam("block") Integer block,
+            @RequestParam("seat") Integer seat
+    ) {
+        seatService.deleteSeat(seat, block, floor);
+        try {
+            seatService.addSeat(name, id, floor, block, seat);
+        } catch (DuplicateKeyException e) {
+            log.error("insert seat error:", e);
+            return false;
+        }
+        return true;
+    }
+
+    @RequestMapping("/leave")
+    public boolean deleteStaff(
+            @RequestParam("name") String name,
+            @RequestParam(value = "id") String id,
+            @RequestParam(value = "floor") Integer floor,
+            @RequestParam(value = "block") Integer block,
+            @RequestParam(value = "seat") Integer seat
+    ) {
+        seatService.deleteSeat(seat, block, floor);
+        return true;
+    }
 }

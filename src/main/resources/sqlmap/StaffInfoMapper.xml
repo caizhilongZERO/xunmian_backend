@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.codemao.xunmiao.mapper.StaffInfoMapper">
+
+    <resultMap id="StaffInfoResultMap" type="com.codemao.xunmiao.domain.staffEntity">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="floor" property="floor"/>
+        <result column="block" property="block"/>
+        <result column="seat" property="seat"/>
+        <result column="createTime" property="createTime"/>
+        <result column="updateTime" property="createTime"/>
+    </resultMap>
+    <sql id="tbl_staff_info">`xunmiao_db`.`tbl_staff_info`</sql>
+    <select id="deleteStaff">
+        delete
+        from
+        <include refid="tbl_staff_info"/>
+        <where>
+                `seat` = #{seat_id}
+            and `block` = #{block_id}
+            and `floor` = #{floor_id}
+        </where>
+    </select>
+</mapper>

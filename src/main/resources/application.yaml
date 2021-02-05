@@ -1,6 +1,18 @@
 spring:
   profiles:
     active: local
-
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+server:
+  tomcat:
+    accesslog:
+      enabled: true
+      pattern: "%h %l %u %t %r %s %b %D"
 mybatis-plus:
   mapper-locations: classpath*:sqlmap/*.xml
+swagger:
+  enabled: false
+  title: creation-data-center-service API&Service文档
+  description: creation-data-center-service  API&Service文档
+  version: 1.0.0
+  base-package: creation-data-center-service
