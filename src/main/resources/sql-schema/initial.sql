@@ -20,6 +20,13 @@ create table `xunmiao_db`.`tbl_block_info`
   `col` int (2) NOT NULL COMMENT '列数'
 )
 
+create table `xunmiao_db`.`tbl_floor_info`
+(
+  `floor` int (8) NOT NULL COMMENT 'block_id',
+  `total` int (8) NOT NULL COMMENT 'total',
+  PRIMARY KEY (`floor`)
+)
+
 # 初始化楼层信息表
 INSERT  into xunmiao_db.tbl_block_info (`id`,total ,floor, `rows`, `col`)
 values

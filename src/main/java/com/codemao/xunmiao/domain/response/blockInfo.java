@@ -14,6 +14,9 @@ public class blockInfo {
     @JsonProperty("block_id")
     private Integer blockId = 0;
 
+    @JsonProperty("total")
+    private Integer total = 0;
+
     @JsonProperty("rows")
     private Integer rows = 0;
 
@@ -22,4 +25,13 @@ public class blockInfo {
 
     @JsonProperty("seat_list")
     private List<seatInfo> seatList = new ArrayList<>();
+
+    public blockInfo(Integer floor, Integer block) {
+        floorId = floor;
+        blockId = block;
+        total = 0;
+        rows = 0;
+        col = 0;
+        seatList = new ArrayList<>();
+    }
 }

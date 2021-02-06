@@ -1,11 +1,13 @@
 package com.codemao.xunmiao.controller;
 
 import com.codemao.xunmiao.domain.blockEntity;
+import com.codemao.xunmiao.domain.floorEntity;
 import com.codemao.xunmiao.domain.response.blockInfo;
 import com.codemao.xunmiao.domain.response.floorInfo;
 import com.codemao.xunmiao.domain.response.seatInfo;
 import com.codemao.xunmiao.domain.response.staffResponse;
 import com.codemao.xunmiao.domain.staffEntity;
+import com.codemao.xunmiao.mapper.FloorInfoMapper;
 import com.codemao.xunmiao.service.blockService;
 import com.codemao.xunmiao.service.seatService;
 import lombok.extern.slf4j.Slf4j;
@@ -27,17 +29,28 @@ public class seatController {
     @Autowired
     private blockService blockService;
 
+    @Autowired
+    private FloorInfoMapper floorInfoMapper;
+
     @RequestMapping("/floor")
     public floorInfo getFloorInfo(
             @RequestParam(value = "floor") Integer floor
     ) {
+        floorEntity floorEntity = floorInfoMapper.selectById(floor);
         floorInfo floorInfo = new floorInfo();
         floorInfo.setBlockList(new ArrayList<>());
         floorInfo.setFloorId(floor);
 
-        List<staffEntity> stafflist = seatService.listFloorInfo(floor);
-        if (stafflist.size() == 0) return floorInfo;
-        return  floorInfo;
+        if (floorEntity.getTotal() == null) return floorInfo;
+        for (int i = 1;i <= floorEntity.getTotal(); i++) {
+            blockInfo blockInfo = getBlockInfo(floor, i);
+            if (blockInfo == null) {
+                floorInfo.getBlockList().add(new blockInfo(floor, i));
+            } else {
+                floorInfo.getBlockList().add(blockInfo);
+            }
+        }
+        return floorInfo;
     }
 
     @RequestMapping("/block")
@@ -46,17 +59,16 @@ public class seatController {
             @RequestParam("blockid") Integer blockid
     )   {
         blockEntity block = blockService.getBlockEntity(blockid, floor);
-        blockInfo blockInfo = new blockInfo();
+        blockInfo blockInfo = new blockInfo(floor, blockid);
         Set<Integer> assignedSeats;
         Map<Integer, staffEntity> staffMapper = new HashMap<>();
-        blockInfo.setBlockId(blockid);
         blockInfo.setSeatList(new ArrayList<>());
-        blockInfo.setFloorId(floor);
 
         if (block == null) return blockInfo;
         List<staffEntity> staffInfos = seatService.ListStaffByFloorAndBlock(floor, blockid);
         blockInfo.setRows(block.getRows());
         blockInfo.setCol(block.getCol());
+        blockInfo.setTotal(block.getTotal());
         staffInfos.forEach(item -> {
             staffMapper.put(item.getSeat(), item);
         });
