@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface StaffInfoMapper extends BaseMapper<staffEntity> {
+public interface SeatInfoMapper extends BaseMapper<staffEntity> {
     void deleteStaff(
             @Param("seat_id") Integer seat_id,
             @Param("block_id") Integer block_id,
@@ -22,5 +22,9 @@ public interface StaffInfoMapper extends BaseMapper<staffEntity> {
     List<staffEntity> ListStaffByfloorAndblockId(
             @Param("floor") Integer floor,
             @Param("block") Integer block
+    );
+
+    List<staffEntity> ListStaffInfoByIdOrName(
+            @Param("keyword") String keyword
     );
 }

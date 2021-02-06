@@ -5,6 +5,12 @@ import lombok.Data;
 
 @Data
 public class staffResponse {
+    @JsonProperty("id")
+    private String id;
+
+    @JsonProperty("name")
+    private String name;
+
     @JsonProperty("floor_id")
     private Integer floor_id;
 

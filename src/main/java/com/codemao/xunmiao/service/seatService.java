@@ -19,7 +19,9 @@ public interface seatService {
             Integer floor_id
     );
 
-    List<staffEntity> listFloorInfo(Integer floor);
+    List<staffEntity> ListStaffByIdOrName(String keyword);
 
     List<staffEntity> ListStaffByFloorAndBlock(Integer floor, Integer block);
+
+
 }

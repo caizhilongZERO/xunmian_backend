@@ -91,11 +91,21 @@ public class seatController {
     }
 
     @RequestMapping("/search")
-    public staffResponse searchStaff(
+    public List<staffResponse> searchStaff(
             @RequestParam("keyword") String keyword
     ){
-        // TODO 搜索员工信息
-        return new staffResponse();
+        List<staffResponse> staffInfos = new ArrayList<>();
+        List<staffEntity> staffEntitys = seatService.ListStaffByIdOrName(keyword);
+        staffEntitys.forEach(item -> {
+            staffResponse response = new staffResponse();
+            response.setId(item.getId());
+            response.setName(item.getName());
+            response.setFloor_id(item.getFloor());
+            response.setBlock_id(item.getBlock());
+            response.setSeat_id(item.getSeat());
+            staffInfos.add(response);
+        });
+        return staffInfos;
     }
     @RequestMapping("/seat")
     public boolean addSeat(

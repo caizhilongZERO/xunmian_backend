@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.codemao.xunmiao.mapper.StaffInfoMapper">
+<mapper namespace="com.codemao.xunmiao.mapper.SeatInfoMapper">
 
     <resultMap id="StaffInfoResultMap" type="com.codemao.xunmiao.domain.staffEntity">
         <id column="id" property="id"/>
@@ -45,6 +45,16 @@
             and `block` = #{block}
         </where>
         order by `seat` ASC
+    </select>
+
+    <select id="ListStaffInfoByIdOrName" resultMap="StaffInfoResultMap">
+        select
+        <include refid="base_cloumn_list"></include>
+        from
+        <include refid="tbl_staff_info"></include>
+        where
+          `id` = #{keyword}
+        OR `name` = #{keyword}
     </select>
 </mapper>
 
