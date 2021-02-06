@@ -18,4 +18,9 @@ public interface StaffInfoMapper extends BaseMapper<staffEntity> {
     List<staffEntity> listFloorInfo(
             @Param("floor") Integer floor
     );
+
+    List<staffEntity> ListStaffByfloorAndblockId(
+            @Param("floor") Integer floor,
+            @Param("block") Integer block
+    );
 }

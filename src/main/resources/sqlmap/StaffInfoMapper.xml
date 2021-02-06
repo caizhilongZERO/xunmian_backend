@@ -8,10 +8,11 @@
         <result column="floor" property="floor"/>
         <result column="block" property="block"/>
         <result column="seat" property="seat"/>
-        <result column="createTime" property="createTime"/>
-        <result column="updateTime" property="createTime"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="createTime"/>
     </resultMap>
     <sql id="tbl_staff_info">`xunmiao_db`.`tbl_staff_info`</sql>
+    <sql id="base_cloumn_list">`id`,`name`,`floor`,`block`,`seat`,`create_time`,`update_time`</sql>
     <delete id="deleteStaff">
         delete
         from
@@ -25,11 +26,26 @@
 
     <select id="listFloorInfo" resultMap="StaffInfoResultMap">
         select
-
+        <include refid="base_cloumn_list"></include>
         from
         <include refid="tbl_staff_info"/>
         <where>
             `floor` = ${floor}
         </where>
+        order by `block`,`seat` ASC
+    </select>
+
+    <select id="ListStaffByfloorAndblockId" resultMap="StaffInfoResultMap">
+        select
+        <include refid="base_cloumn_list"></include>
+        from
+        <include refid="tbl_staff_info"></include>
+        <where>
+            `floor` = #{floor}
+            and `block` = #{block}
+        </where>
+        order by `seat` ASC
     </select>
 </mapper>
+
+

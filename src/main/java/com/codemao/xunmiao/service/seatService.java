@@ -20,4 +20,6 @@ public interface seatService {
     );
 
     List<staffEntity> listFloorInfo(Integer floor);
+
+    List<staffEntity> ListStaffByFloorAndBlock(Integer floor, Integer block);
 }

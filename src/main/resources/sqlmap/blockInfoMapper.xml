@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.codemao.xunmiao.mapper.BlockInfoMapper">
+    <resultMap id="BloclkInfoResultMap" type="com.codemao.xunmiao.domain.blockEntity">
+        <id column="id" property="id"/>
+        <result column="total" property="total"/>
+        <result column="floor" property="floor"/>
+    </resultMap>
+
+    <sql id="tbl_block_info">`xunmiao_db`.`tbl_block_info`</sql>
+    <sql id="base_cloumn_list">`id`,`total`,`floor`</sql>
+
+    <select id="getBlockEntityByidAndfloor" resultMap="BloclkInfoResultMap">
+        select
+        <include refid="base_cloumn_list"></include>
+        from
+        <include refid="tbl_block_info"></include>
+        where
+          `id` = #{id}
+        and `floor` = #{floor}
+    </select>
+</mapper>

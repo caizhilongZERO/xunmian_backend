@@ -43,7 +43,14 @@ public class seatServiceImpl implements seatService {
 
     @Override
     public List<staffEntity> listFloorInfo(Integer floor) {
-       return staffInfoMapper.listFloorInfo(floor);
+        List<staffEntity> staffInfos =  staffInfoMapper.listFloorInfo(floor);
+        return staffInfos != null ? staffInfos : null;
+    }
+
+    @Override
+    public List<staffEntity> ListStaffByFloorAndBlock(Integer floor, Integer block) {
+        List<staffEntity> staffInfos = staffInfoMapper.ListStaffByfloorAndblockId(floor, block);
+        return staffInfos != null ? staffInfos : null;
     }
 }
 
