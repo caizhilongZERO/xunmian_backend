@@ -51,10 +51,12 @@ public class seatController {
         Map<Integer, staffEntity> staffMapper = new HashMap<>();
         blockInfo.setBlockId(blockid);
         blockInfo.setSeatList(new ArrayList<>());
+        blockInfo.setFloorId(floor);
 
         if (block == null) return blockInfo;
         List<staffEntity> staffInfos = seatService.ListStaffByFloorAndBlock(floor, blockid);
-
+        blockInfo.setRows(block.getRows());
+        blockInfo.setCol(block.getCol());
         staffInfos.forEach(item -> {
             staffMapper.put(item.getSeat(), item);
         });

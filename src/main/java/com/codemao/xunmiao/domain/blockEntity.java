@@ -15,4 +15,10 @@ public class blockEntity {
 
     @TableId(value = "floor")
     private Integer floor;
+
+    @TableId(value = "rows")
+    private Integer rows;
+
+    @TableId(value = "col")
+    private Integer col;
 }

@@ -5,10 +5,12 @@
         <id column="id" property="id"/>
         <result column="total" property="total"/>
         <result column="floor" property="floor"/>
+        <result column="rows" property="rows"/>
+        <result column="col" property="col"/>
     </resultMap>
 
     <sql id="tbl_block_info">`xunmiao_db`.`tbl_block_info`</sql>
-    <sql id="base_cloumn_list">`id`,`total`,`floor`</sql>
+    <sql id="base_cloumn_list">`id`,`total`,`floor`,`rows`,`col`</sql>
 
     <select id="getBlockEntityByidAndfloor" resultMap="BloclkInfoResultMap">
         select
