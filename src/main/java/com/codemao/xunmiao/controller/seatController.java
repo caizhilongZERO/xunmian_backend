@@ -32,6 +32,11 @@ public class seatController {
     @Autowired
     private FloorInfoMapper floorInfoMapper;
 
+    /**
+     * 获取楼层信息
+     * @param floor 楼层号
+     * @return
+     */
     @RequestMapping("/floor")
     public floorInfo getFloorInfo(
             @RequestParam(value = "floor") Integer floor
@@ -53,6 +58,12 @@ public class seatController {
         return floorInfo;
     }
 
+    /**
+     * 获取小组信息
+     * @param floor 楼层号
+     * @param blockid 组号
+     * @return
+     */
     @RequestMapping("/block")
     public blockInfo getBlockInfo(
             @RequestParam("floor") Integer floor,
@@ -90,6 +101,11 @@ public class seatController {
         return blockInfo;
     }
 
+    /**
+     * 查找员工
+     * @param keyword 工号或姓名关键字
+     * @return
+     */
     @RequestMapping("/search")
     public List<staffResponse> searchStaff(
             @RequestParam("keyword") String keyword
@@ -107,6 +123,16 @@ public class seatController {
         });
         return staffInfos;
     }
+
+    /**
+     * 添加座位
+     * @param name 姓名
+     * @param id    工号
+     * @param floor 楼层
+     * @param block 小组
+     * @param seat  座位
+     * @return
+     */
     @RequestMapping("/seat")
     public boolean addSeat(
             @RequestParam("name") String name,
@@ -125,6 +151,15 @@ public class seatController {
         return true;
     }
 
+    /**
+     * 离座
+     * @param name 姓名
+     * @param id    工号
+     * @param floor 楼层号
+     * @param block 小组号
+     * @param seat  座位号
+     * @return
+     */
     @RequestMapping("/leave")
     public boolean deleteStaff(
             @RequestParam("name") String name,
