@@ -141,7 +141,7 @@ public class seatController {
             @RequestParam("block") Integer block,
             @RequestParam("seat") Integer seat
     ) {
-        seatService.deleteSeat(seat, block, floor);
+        seatService.deleteSeat2(id);
         try {
             seatService.addSeat(name, id, floor, block, seat);
         } catch (DuplicateKeyException e) {

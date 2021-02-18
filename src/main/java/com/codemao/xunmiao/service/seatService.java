@@ -33,6 +33,8 @@ public interface seatService {
             Integer floor_id
     );
 
+    void deleteSeat2(String id);
+
     /**
      * 通过姓名或者工号查找员工信息
      * @param keyword 姓名或者工号

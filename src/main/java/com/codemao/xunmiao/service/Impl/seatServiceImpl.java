@@ -41,6 +41,10 @@ public class seatServiceImpl implements seatService {
         seatInfoMapper.deleteStaff(seat_id, block_id, floor_id);
     }
 
+    public void  deleteSeat2(String id) {
+        seatInfoMapper.deleteById(id);
+    }
+
     @Override
     public List<staffEntity> ListStaffByFloorAndBlock(Integer floor, Integer block) {
         List<staffEntity> staffInfos = seatInfoMapper.ListStaffByfloorAndblockId(floor, block);
