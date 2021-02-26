@@ -142,15 +142,18 @@ public class seatController {
             @RequestParam("seat") Integer seat
     ) {
         List<staffResponse> list = searchStaff(id);
-        staffResponse staff = list.get(0);
-        if (staff != null) {
+        staffResponse staff = null;
+        if (list.size() != 0) {
+            staff = list.get(0);
             seatService.deleteSeat(staff.getSeat_id(), staff.getBlock_id(), staff.getFloor_id());
         }
         try {
             seatService.addSeat(name, id, floor, block, seat);
         } catch (DuplicateKeyException e) {
             log.error("insert seat error:", e);
-            seatService.addSeat(staff.getName(), staff.getId(), staff.getFloor_id(), staff.getBlock_id(), staff.getSeat_id());
+            if (staff != null) {
+                seatService.addSeat(staff.getName(), staff.getId(), staff.getFloor_id(), staff.getBlock_id(), staff.getSeat_id());
+            }
             return false;
         }
 
